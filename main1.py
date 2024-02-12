@@ -1,8 +1,8 @@
 import pandas as pd
 import matplotlib.pyplot as pt
+from pandas import DataFrame
 
-
-def read_csv(path: str) -> pd.DataFrame:
+def read_csv(path: str) -> DataFrame:
     df=pd.read_csv(path)
     df.columns=['Date', 'Course']
     df['Date'] = pd.to_datetime(df['Date'], format='%Y-%m-%d')
@@ -13,3 +13,6 @@ def read_csv(path: str) -> pd.DataFrame:
     df["Median"] = df.apply(lambda x: (abs(x["Value"] - df_median)), axis=1)
     df = df.sort_values(by="Date", ascending=True)
     return df
+
+def find_median_value(df:DataFrame , value: float) -> DataFrame:
+    return df.query('Mean >= @value')
