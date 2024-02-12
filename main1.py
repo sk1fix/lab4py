@@ -23,3 +23,7 @@ def find_median_value(df: DataFrame, value: float) -> DataFrame:
 
 def find_delta_time_value(df: DataFrame, first: date, second: date) -> DataFrame:
     return df.query('Date >= @first and Date<=@second')
+
+
+def sort_month(df: pd.DataFrame) -> pd.Series:
+    return df.groupby(df.Date.dt.month)["Value"].mean()
