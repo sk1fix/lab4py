@@ -27,3 +27,20 @@ def find_delta_time_value(df: DataFrame, first: date, second: date) -> DataFrame
 
 def sort_month(df: pd.DataFrame) -> pd.Series:
     return df.groupby(df.Date.dt.month)["Value"].mean()
+
+
+def show_value_graph(df: pd.DataFrame) -> None:
+    fig = pt.figure(figsize=(19, 5))
+    pt.ylabel("Course")
+    pt.xlabel("date")
+    pt.title('Курс долара')
+    pt.plot(df["Date"], df["Course"], color='blue',
+            linestyle='-', linewidth=1)
+    pt.show()
+
+
+def course_per_month(df: DataFrame, date: date) -> None:
+    p = df[(df["Date"].dt.year == date.year) &
+           (df["Date"].dt.month == date.month)]
+    p.plot(x="Date", y="Course", marker='o')
+    pt.show()
